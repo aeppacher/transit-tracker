@@ -51,8 +51,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :transit_tracker, TransitTracker.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("DB_USER"),
+  password: System.get_env("DB_PASS"),
   database: "transit_tracker_dev",
   hostname: "localhost",
   pool_size: 10
