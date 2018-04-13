@@ -18,9 +18,16 @@ defmodule TransitTrackerWeb.Router do
 
     get "/", PageController, :index
   end
+  
+  scope "/auth", TransitTrackerWeb do
+    pipe_through :browser
 
+    get "/google", AuthController, :request
+    get "/:provider/callback", AuthController, :new 
+  end
   # Other scopes may use custom stacks.
-  # scope "/api", TransitTrackerWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TransitTrackerWeb do
+    pipe_through :api
+    resources "/users", UserController, except: [:new, :edit]
+  end
 end
