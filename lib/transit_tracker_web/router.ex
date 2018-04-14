@@ -29,5 +29,10 @@ defmodule TransitTrackerWeb.Router do
   scope "/api", TransitTrackerWeb do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
+    resources "/stops", StopController, except: [:new, :edit]
+    resources "/routes", RouteController, except: [:new, :edit]
+    resources "/vehicles", VehicleController, except: [:new, :edit]
+    resources "/trips", TripController, except: [:new, :edit]
+    resources "/predictions", PredictionController, except: [:new, :edit]
   end
 end
