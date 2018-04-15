@@ -58,7 +58,27 @@ defmodule Seeds do
     data = text["data"]
     parse_route(data)
     Repo.delete_all Stop
-    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?include=route')
+    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?filter[route]=Red&include=route')
+    text = Poison.decode!(resp.body)
+    data = text["data"]
+    parse_stops(data)
+    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?filter[route]=Green-B&include=route')
+    text = Poison.decode!(resp.body)
+    data = text["data"]
+    parse_stops(data)
+    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?filter[route]=Green-C&include=route')
+    text = Poison.decode!(resp.body)
+    data = text["data"]
+    parse_stops(data)
+    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?filter[route]=Green-D&include=route')
+    text = Poison.decode!(resp.body)
+    data = text["data"]
+    parse_stops(data)
+    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?filter[route]=Orange&include=route')
+    text = Poison.decode!(resp.body)
+    data = text["data"]
+    parse_stops(data)
+    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?filter[route]=Blue&include=route')
     text = Poison.decode!(resp.body)
     data = text["data"]
     parse_stops(data)
