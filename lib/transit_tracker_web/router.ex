@@ -30,6 +30,7 @@ defmodule TransitTrackerWeb.Router do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
     resources "/routes", RouteController, except: [:new, :edit]
+    get "/stops/:route_id", StopController, :get_stops_by_route
     resources "/stops", StopController, except: [:new, :edit]
   end
 end

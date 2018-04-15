@@ -197,4 +197,11 @@ defmodule TransitTracker.Transit do
     Stop.changeset(stop, %{})
   end
 
+  def get_stops_by_route(id) do
+    query = from s in Stop,
+            where: ^id in s.routes,
+            select: s
+    Repo.all(query)
+  end
+
 end
