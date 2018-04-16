@@ -12,7 +12,7 @@ export default function Stop(params) {
 
   let colorHeight = (60 / stopRoutesCleaned.length);
   let stopRoutes = _.map(stopRoutesCleaned, (rr, index) => 
-    <CardText style={
+    <CardText key={index} style={
       { backgroundColor: getColor(rr),
         height: colorHeight,
         color: "#ffffff",
@@ -51,11 +51,8 @@ function cleanRoutes(routes){
   let tempRoutes = routes.slice();
 
   for (let i=routes.length-1; i>=0; i--) {
-    console.log(routes[i]);
     if (routes[i].substring(0,1) === "G") {
-        console.log(tempRoutes, "start");
         tempRoutes.splice(i, 1);
-        console.log(tempRoutes, "end");
         shouldAdd = true;
     }
   }
