@@ -53,7 +53,7 @@ defmodule Seeds do
   
   def run do
     Repo.delete_all Route
-    resp = HTTPoison.get!('https://api-v3.mbta.com/routes/')
+    resp = HTTPoison.get!('https://api-v3.mbta.com/routes?filter%5Btype%5D=0%2C1')
     text = Poison.decode!(resp.body)
     data = text["data"]
     parse_route(data)
