@@ -36,6 +36,10 @@ defmodule TransitTracker.Transit do
   """
   def get_route!(id), do: Repo.get!(Route, id)
 
+  def get_route_by_route_id!(route_id) do
+    Repo.get_by!(Route, route_id: route_id)
+  end
+  
   @doc """
   Creates a route.
 
@@ -204,4 +208,100 @@ defmodule TransitTracker.Transit do
     Repo.all(query)
   end
 
+
+  alias TransitTracker.Transit.Vehicle
+
+  @doc """
+  Returns the list of vehicles.
+
+  ## Examples
+
+      iex> list_vehicles()
+      [%Vehicle{}, ...]
+
+  """
+  def list_vehicles do
+    Repo.all(Vehicle)
+  end
+
+  @doc """
+  Gets a single vehicle.
+
+  Raises `Ecto.NoResultsError` if the Vehicle does not exist.
+
+  ## Examples
+
+      iex> get_vehicle!(123)
+      %Vehicle{}
+
+      iex> get_vehicle!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_vehicle!(id), do: Repo.get!(Vehicle, id)
+
+  @doc """
+  Creates a vehicle.
+
+  ## Examples
+
+      iex> create_vehicle(%{field: value})
+      {:ok, %Vehicle{}}
+
+      iex> create_vehicle(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_vehicle(attrs \\ %{}) do
+    %Vehicle{}
+    |> Vehicle.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a vehicle.
+
+  ## Examples
+
+      iex> update_vehicle(vehicle, %{field: new_value})
+      {:ok, %Vehicle{}}
+
+      iex> update_vehicle(vehicle, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_vehicle(%Vehicle{} = vehicle, attrs) do
+    vehicle
+    |> Vehicle.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Vehicle.
+
+  ## Examples
+
+      iex> delete_vehicle(vehicle)
+      {:ok, %Vehicle{}}
+
+      iex> delete_vehicle(vehicle)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_vehicle(%Vehicle{} = vehicle) do
+    Repo.delete(vehicle)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking vehicle changes.
+
+  ## Examples
+
+      iex> change_vehicle(vehicle)
+      %Ecto.Changeset{source: %Vehicle{}}
+
+  """
+  def change_vehicle(%Vehicle{} = vehicle) do
+    Vehicle.changeset(vehicle, %{})
+  end
 end

@@ -324,4 +324,74 @@ defmodule TransitTracker.TransitTest do
       assert %Ecto.Changeset{} = Transit.change_on__routes(on__routes)
     end
   end
+
+  describe "vehicles" do
+    alias TransitTracker.Transit.Vehicle
+
+    @valid_attrs %{current_status: "some current_status", direction: 42, lat: 120.5, long: 120.5, mbta_id: "some mbta_id", next_stop_eta: "2010-04-17 14:00:00.000000Z"}
+    @update_attrs %{current_status: "some updated current_status", direction: 43, lat: 456.7, long: 456.7, mbta_id: "some updated mbta_id", next_stop_eta: "2011-05-18 15:01:01.000000Z"}
+    @invalid_attrs %{current_status: nil, direction: nil, lat: nil, long: nil, mbta_id: nil, next_stop_eta: nil}
+
+    def vehicle_fixture(attrs \\ %{}) do
+      {:ok, vehicle} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Transit.create_vehicle()
+
+      vehicle
+    end
+
+    test "list_vehicles/0 returns all vehicles" do
+      vehicle = vehicle_fixture()
+      assert Transit.list_vehicles() == [vehicle]
+    end
+
+    test "get_vehicle!/1 returns the vehicle with given id" do
+      vehicle = vehicle_fixture()
+      assert Transit.get_vehicle!(vehicle.id) == vehicle
+    end
+
+    test "create_vehicle/1 with valid data creates a vehicle" do
+      assert {:ok, %Vehicle{} = vehicle} = Transit.create_vehicle(@valid_attrs)
+      assert vehicle.current_status == "some current_status"
+      assert vehicle.direction == 42
+      assert vehicle.lat == 120.5
+      assert vehicle.long == 120.5
+      assert vehicle.mbta_id == "some mbta_id"
+      assert vehicle.next_stop_eta == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+    end
+
+    test "create_vehicle/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Transit.create_vehicle(@invalid_attrs)
+    end
+
+    test "update_vehicle/2 with valid data updates the vehicle" do
+      vehicle = vehicle_fixture()
+      assert {:ok, vehicle} = Transit.update_vehicle(vehicle, @update_attrs)
+      assert %Vehicle{} = vehicle
+      assert vehicle.current_status == "some updated current_status"
+      assert vehicle.direction == 43
+      assert vehicle.lat == 456.7
+      assert vehicle.long == 456.7
+      assert vehicle.mbta_id == "some updated mbta_id"
+      assert vehicle.next_stop_eta == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+    end
+
+    test "update_vehicle/2 with invalid data returns error changeset" do
+      vehicle = vehicle_fixture()
+      assert {:error, %Ecto.Changeset{}} = Transit.update_vehicle(vehicle, @invalid_attrs)
+      assert vehicle == Transit.get_vehicle!(vehicle.id)
+    end
+
+    test "delete_vehicle/1 deletes the vehicle" do
+      vehicle = vehicle_fixture()
+      assert {:ok, %Vehicle{}} = Transit.delete_vehicle(vehicle)
+      assert_raise Ecto.NoResultsError, fn -> Transit.get_vehicle!(vehicle.id) end
+    end
+
+    test "change_vehicle/1 returns a vehicle changeset" do
+      vehicle = vehicle_fixture()
+      assert %Ecto.Changeset{} = Transit.change_vehicle(vehicle)
+    end
+  end
 end
