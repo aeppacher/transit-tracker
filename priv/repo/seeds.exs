@@ -74,6 +74,10 @@ defmodule Seeds do
     text = Poison.decode!(resp.body)
     data = text["data"]
     parse_stops(data)
+    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?filter[route]=Green-E&include=route')
+    text = Poison.decode!(resp.body)
+    data = text["data"]
+    parse_stops(data)
     resp = HTTPoison.get!('https://api-v3.mbta.com/stops?filter[route]=Orange&include=route')
     text = Poison.decode!(resp.body)
     data = text["data"]
