@@ -1,35 +1,84 @@
 import React from 'react';
-import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
+import { Button, Card, CardBody, CardTitle, CardText } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 export default function Stop(params) {
   let stop = params.stop;
 
   let stopName = stop.name;
-  let stopRoutes = _.map(stop.routes, (rr) => 
+  let stopUrl = "/stop/" + stop.id;
+  let stopRoutesCleaned = cleanRoutes(stop.routes);
+  let routesCleanedLength = stopRoutesCleaned.length;
+
+  let colorHeight = (60 / stopRoutesCleaned.length);
+  let stopRoutes = _.map(stopRoutesCleaned, (rr, index) => 
     <CardText style={
       { backgroundColor: getColor(rr),
+        height: colorHeight,
         color: "#ffffff",
-        borderRadius: "0.25em"}
+        marginTop: "0px",
+        marginBottom: "0px",
+        borderRadius: getRadius(index, routesCleanedLength)
+      }
     }>
-    {rr}
     </CardText>);
 
   let cardStyle = {
     backgroundColor: '#343a40',
     borderColor: '#333',
     width: '210px',
-    height: '258px',
     padding: '0px',
     margin: '5px',
     float: 'left',
   };
 
+  let cardTitleStyle = {
+    height:'50px'
+  }
+
   return <Card body inverse style={cardStyle} className="text-center">
     <CardBody>
-        <CardTitle>{stopName}</CardTitle>
+        <CardTitle style={cardTitleStyle}>
+          <NavLink id="station_title" to={stopUrl} >{stopName}</NavLink>
+        </CardTitle>
         {stopRoutes}
     </CardBody>
   </Card>;
+}
+
+function cleanRoutes(routes){
+  let shouldAdd = false;
+  let tempRoutes = routes.slice();
+
+  for (let i=routes.length-1; i>=0; i--) {
+    console.log(routes[i]);
+    if (routes[i].substring(0,1) === "G") {
+        console.log(tempRoutes, "start");
+        tempRoutes.splice(i, 1);
+        console.log(tempRoutes, "end");
+        shouldAdd = true;
+    }
+  }
+
+  if(shouldAdd){
+    tempRoutes.push("Green");
+  }
+
+  return tempRoutes;
+}
+
+function getRadius(index, length) {
+  if(0 === (length - 1)) {
+    return "0.25em 0.25em 0.25em 0.25em";
+  }
+  else if(index === 0){
+    return "0.25em 0.25em 0em 0em";
+  } 
+  else if (index === (length - 1)) {
+    return "0em 0em 0.25em 0.25em";
+  }
+
+  return "0em";
 }
 
 function getColor(name){
