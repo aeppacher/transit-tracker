@@ -17,6 +17,7 @@ defmodule TransitTrackerWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/feed", PageController, :index
   end
   
   scope "/auth", TransitTrackerWeb do

@@ -45,6 +45,7 @@ defmodule TransitTracker.Mixfile do
       {:ueberauth_google, "~> 0.5"},
       {:httpoison, "~> 1.0"},
       {:poison, "~> 3.1", override: true},
+      {:distillery, "~> 1.5", runtime: false}
     ]
   end
 
