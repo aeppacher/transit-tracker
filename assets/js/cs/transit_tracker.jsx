@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
 
 import Feed from './feed';
+import Nav from './nav';
 
 export default function transit_tracker_init(store) {
 	ReactDOM.render(
@@ -20,6 +21,7 @@ let TransitTracker = connect((state) => state)((props) => {
 			<div>
 				<Route path="/" exact={true} render={() =>
 					<div>
+						<Nav />
 						<Feed stops={props.stops}/>
 					</div>
 				} />
