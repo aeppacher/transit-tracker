@@ -6,16 +6,22 @@ export default function Stop(params) {
 
   let stopName = stop.name;
   let stopRoutes = _.map(stop.routes, (rr) => 
-    <CardText style={{ backgroundColor: getColor(rr), color: "#ffffff"}}>
+    <CardText style={
+      { backgroundColor: getColor(rr),
+        color: "#ffffff",
+        borderRadius: "0.25em"}
+    }>
     {rr}
     </CardText>);
 
   let cardStyle = {
     backgroundColor: '#343a40',
     borderColor: '#333',
-    width: '200px',
+    width: '210px',
+    height: '258px',
     padding: '0px',
-    margin: '5px'
+    margin: '5px',
+    float: 'left',
   };
 
   return <Card body inverse style={cardStyle} className="text-center">
