@@ -4,3 +4,10 @@ export function setAllStops(stops) {
 		payload: stops
 	}
 }
+
+export function setStopData(stop) {
+	return {
+		type: 'SET_STOP_DATA',
+		payload: stop
+	}
+}

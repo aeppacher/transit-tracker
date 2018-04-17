@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import FeedContainer from './feed_container';
+import StationContainer from './station_container';
 import Nav from './nav';
 
 
@@ -30,14 +31,10 @@ class TransitTracker extends Component {
 					<Route path="/" exact={true} render={() =>
 						<div>
 							<Nav />
-							<FeedContainer store={this.props.store} />
+							<FeedContainer />
 						</div>
 					} />
-					<Route path="/stop/:stop_id" render={() =>
-						<div>
-							<Nav />
-						</div>
-					} />
+					<Route path="/stop/:stop_id" component={ StationContainer } />
 				</div>
 			</Router>
 		);

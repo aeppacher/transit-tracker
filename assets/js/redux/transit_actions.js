@@ -15,3 +15,20 @@ export function setAllStops() {
 		});
 	}
 }
+
+export function getStopData(stop_id){
+	return (dispatch) => {
+		$.ajax("/api/stops/id/" + stop_id, {
+			method: "get",
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			success: (response) => {
+				console.log(response, "response");
+				dispatch(StopActions.setStopData(response.data));
+			},
+			error: (error) => {
+				console.log(error, "setAllStops errors");
+			}
+		});
+	}
+}

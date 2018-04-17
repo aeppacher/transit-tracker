@@ -33,6 +33,7 @@ defmodule TransitTrackerWeb.Router do
     resources "/users", UserController, except: [:new, :edit]
     resources "/routes", RouteController, except: [:new, :edit]
     get "/stops/:route_id", StopController, :get_stops_by_route
+    get "/stops/id/:stop_id", StopController, :get_stop_by_stop_id
     resources "/stops", StopController, except: [:new, :edit]
     resources "/vehicles", VehicleController, except: [:new, :edit]
   end
