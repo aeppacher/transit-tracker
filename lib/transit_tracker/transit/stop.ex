@@ -9,6 +9,7 @@ defmodule TransitTracker.Transit.Stop do
     field :name, :string
     field :stop_id, :string
     field :routes, {:array, :string}
+    field :children, {:array, :string}
 
     timestamps()
   end
@@ -16,7 +17,7 @@ defmodule TransitTracker.Transit.Stop do
   @doc false
   def changeset(stop, attrs) do
     stop
-    |> cast(attrs, [:name, :stop_id, :lat, :long, :routes])
-    |> validate_required([:name, :stop_id, :lat, :long, :routes])
+    |> cast(attrs, [:name, :stop_id, :lat, :long, :routes, :children])
+    |> validate_required([:name, :stop_id, :lat, :long, :routes, :children])
   end
 end
