@@ -72,7 +72,7 @@ defmodule Seeds do
 
 
   def get_children do
-    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?include=parent_station&filter[route_type]=1')
+    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?include=parent_station&filter[route_type]=1,0')
     text = Poison.decode!(resp.body)
     data = text["data"]
     parse_children(data)
