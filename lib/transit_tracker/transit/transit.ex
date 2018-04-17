@@ -212,7 +212,7 @@ defmodule TransitTracker.Transit do
     query = from s in Stop,
             where: ^id in s.children,
             select: s
-    Repo.all(query)
+    Repo.one(query)
   end
 
 

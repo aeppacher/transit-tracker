@@ -58,7 +58,6 @@ defmodule Seeds do
     route = (hd routes)
     parent = route["relationships"]["parent_station"]
     if (parent["data"]) do
-      IO.inspect(parent["data"])
       case Repo.get_by(Stop, stop_id: parent["data"]["id"]) do
         nil ->
           parse_children((tl routes))
