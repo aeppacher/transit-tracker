@@ -18,6 +18,7 @@ defmodule TransitTrackerWeb.Router do
 
     get "/", PageController, :index
     get "/feed", PageController, :index
+    get "/stop/:stop_id", PageController, :index
   end
   
   scope "/auth", TransitTrackerWeb do
