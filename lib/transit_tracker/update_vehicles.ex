@@ -10,13 +10,21 @@ defmodule TransitTracker.UpdateVehicles do
     vehicle = hd(vehicles)
     attr = vehicle["attributes"]
     route_id = vehicle["relationships"]["route"]["data"]["id"]
-
+    stop_id = vehicle["relationships"]["stop"]["data"]["id"]
+    next_stop = Transit.get_stop_by_children(stop_id)
+    next_stop_id = if (next_stop == nil) do
+      #IO.inspect(vehicle);
+      nil
+    else
+      next_stop.id
+    end
+    
     vehicle_params = %Vehicle{
       mbta_id: vehicle["id"],
       lat: attr["latitude"],
       long: attr["longitude"],
       current_status: attr["current_status"],
-      next_stop_id: nil, #TODO: attr[""],
+      next_stop_id: next_stop_id,
       route_id: Transit.get_route_by_route_id!(route_id).id,
       next_stop_eta: nil, #TODO: attr[""],
       direction: attr["direction_id"]}
