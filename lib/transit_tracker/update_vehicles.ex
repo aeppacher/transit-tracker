@@ -1,4 +1,4 @@
-defmodule UpdateVehicles do
+defmodule TransitTracker.UpdateVehicles do
   alias TransitTracker.Repo
   alias TransitTracker.Transit.Vehicle
   alias TransitTracker.Transit
@@ -42,4 +42,3 @@ defmodule UpdateVehicles do
   end
 end
 
-UpdateVehicles.run

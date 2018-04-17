@@ -12,6 +12,7 @@ defmodule TransitTracker.Application do
       supervisor(TransitTracker.Repo, []),
       # Start the endpoint when the application starts
       supervisor(TransitTrackerWeb.Endpoint, []),
+      worker(TransitTracker.Scheduler, [])
       # Start your own worker by calling: TransitTracker.Worker.start_link(arg1, arg2, arg3)
       # worker(TransitTracker.Worker, [arg1, arg2, arg3]),
     ]
