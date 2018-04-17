@@ -23,7 +23,7 @@ defmodule Seeds do
     stop = (hd stops)
     attr = stop["attributes"]
     route = stop["relationships"]["route"]["data"]["id"]
-    stop_params = %Stop{ lat: attr["latitude"], long: attr["longitude"], name: attr["name"], stop_id: stop["id"], routes: [route]}
+    stop_params = %Stop{ lat: attr["latitude"], long: attr["longitude"], name: attr["name"], stop_id: stop["id"], routes: [route], children: []}
     case Repo.get_by(Stop, stop_id: stop_params.stop_id) do
       nil ->
         Repo.insert!(stop_params)
@@ -51,6 +51,34 @@ defmodule Seeds do
     parse_route((tl routes))
   end
   
+  def parse_children([]) do
+  end
+
+  def parse_children(routes) do
+    route = (hd routes)
+    parent = route["relationships"]["parent_station"]
+    if (parent["data"]) do
+      IO.inspect(parent["data"])
+      case Repo.get_by(Stop, stop_id: parent["data"]["id"]) do
+        nil ->
+          parse_children((tl routes))
+        stop ->
+          Transit.update_stop(stop, %{children: stop.children ++ [route["id"]]})
+          parse_children((tl routes))
+      end
+    else
+      parse_children((tl routes))
+    end
+  end
+
+
+  def get_children do
+    resp = HTTPoison.get!('https://api-v3.mbta.com/stops?include=parent_station&filter[route_type]=1')
+    text = Poison.decode!(resp.body)
+    data = text["data"]
+    parse_children(data)
+  end
+
   def run do
     Repo.delete_all Route
     resp = HTTPoison.get!('https://api-v3.mbta.com/routes?filter%5Btype%5D=0%2C1')
@@ -86,6 +114,7 @@ defmodule Seeds do
     text = Poison.decode!(resp.body)
     data = text["data"]
     parse_stops(data)
+    get_children()
   end
 
 end

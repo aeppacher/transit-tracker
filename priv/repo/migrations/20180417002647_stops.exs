@@ -4,5 +4,6 @@ defmodule TransitTracker.Repo.Migrations.Stops do
   def change do
     alter table(:stops) do
       add :children, {:array, :string}
+    end
   end
 end

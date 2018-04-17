@@ -16,6 +16,7 @@ defmodule TransitTrackerWeb.StopView do
       stop_id: stop.stop_id,
       lat: stop.lat,
       long: stop.long,
-      routes: stop.routes}
+      routes: stop.routes,
+      children: stop.children}
   end
 end
