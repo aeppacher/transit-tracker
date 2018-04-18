@@ -25,6 +25,11 @@ defmodule TransitTrackerWeb.StopController do
     render(conn, "index.json", stops: stops)
   end
 
+  def get_stop_by_stop_id(conn, %{"stop_id" => stop_id}) do
+    stop = Transit.get_stop_by_stop_id(stop_id)
+    render(conn, "show.json", stop: stop)
+  end
+
   def show(conn, %{"id" => id}) do
     stop = Transit.get_stop!(id)
     render(conn, "show.json", stop: stop)

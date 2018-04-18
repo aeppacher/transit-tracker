@@ -208,6 +208,10 @@ defmodule TransitTracker.Transit do
     Repo.all(query)
   end
 
+  def get_stop_by_stop_id(stop_id) do
+    Repo.get_by!(Stop, stop_id: stop_id)
+  end
+
   def get_stop_by_children(id) do
     query = from s in Stop,
             where: ^id in s.children,

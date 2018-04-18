@@ -6,7 +6,7 @@ export default function Stop(params) {
   let stop = params.stop;
 
   let stopName = stop.name;
-  let stopUrl = "/stop/" + stop.id;
+  let stopUrl = "/stop/" + stop.stop_id;
   let stopRoutesCleaned = cleanRoutes(stop.routes);
   let routesCleanedLength = stopRoutesCleaned.length;
 
