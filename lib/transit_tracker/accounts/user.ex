@@ -8,6 +8,7 @@ defmodule TransitTracker.Accounts.User do
     field :first_name, :string
     field :last_name, :string
     field :token, :string
+    field :favorites, {:array, :string}
 
     timestamps()
   end
@@ -15,7 +16,7 @@ defmodule TransitTracker.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:first_name, :last_name, :email, :token])
+    |> cast(attrs, [:first_name, :last_name, :email, :token, :favorites])
     |> validate_required([:first_name, :last_name, :email, :token])
   end
 end
