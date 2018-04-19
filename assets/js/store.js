@@ -10,8 +10,17 @@ function stops(state = [], action) {
 	}
 }
 
+function routes(state = [], action) {
+	switch (action.type){
+		case 'ROUTES_LIST':
+			return [...action.routes];
+		default:
+			return state;
+	}
+}
+
 function root_reducer(state0, action) {
-	let reducer = combineReducers({stops});
+	let reducer = combineReducers({stops, routes});
 
 	let state1 = reducer(state0, action);
 	return deepFreeze(state1);

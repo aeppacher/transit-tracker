@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 
 const mapStateToProps = (state) => {
 	return {
-		currentStop: state.feed.currentStop
+		currentStop: state.stops.currentStop
 	}
 }
 

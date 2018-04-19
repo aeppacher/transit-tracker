@@ -26,7 +26,7 @@ class Station extends React.Component {
 
 		let routeCards = _.map(routes, (rr, index) => 
     <CardText key={index}>
-    	<NavLink to={"/routes/" + rr}>{rr}</NavLink>
+    	<NavLink to={"/route/" + rr}>{rr}</NavLink>
     </CardText>);
 
 
