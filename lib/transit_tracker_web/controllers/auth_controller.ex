@@ -20,7 +20,7 @@ defmodule TransitTrackerWeb.AuthController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Thank you for signing in!")
-        |> put_session(:user_id, user.id)
+        |> put_session(:current_user, user)
         |> redirect(to: page_path(conn, :index))
       {:error, _reason} ->
         conn
