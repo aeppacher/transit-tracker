@@ -15,6 +15,7 @@ defmodule TransitTrackerWeb.UserView do
       first_name: user.first_name,
       last_name: user.last_name,
       email: user.email,
-      token: user.token}
+      token: user.token,
+      favorites: user.favorites}
   end
 end

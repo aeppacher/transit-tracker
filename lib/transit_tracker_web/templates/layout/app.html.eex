@@ -12,6 +12,7 @@
 	</head>
 
 	<body>
+    <script>window.user="<%= @current_user.id %>"</script>
 		<div class="container">
 
 			<%= if get_flash(@conn, :info) do %>

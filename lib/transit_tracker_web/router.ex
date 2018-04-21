@@ -1,9 +1,11 @@
 defmodule TransitTrackerWeb.Router do
   use TransitTrackerWeb, :router
+  import TransitTrackerWeb.Plug
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
+    plug :get_user
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
