@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { setAllStops } from '../redux/transit_actions';
+import { setAllRoutes } from '../redux/route_actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import FeedContainer from './feed_container';
 import StationContainer from './station_container';
-import Nav from './nav';
+import RouteContainer from './route_container';
+import CustomNav from './custom_nav';
 
 
 class TransitTracker extends Component {
@@ -22,6 +24,7 @@ class TransitTracker extends Component {
 
 	getData(){
 		this.props.setAllStops();
+		this.props.setAllRoutes();
 	}
 
 	render() {
@@ -30,11 +33,12 @@ class TransitTracker extends Component {
 				<div>
 					<Route path="/" exact={true} render={() =>
 						<div>
-							<Nav />
+							<CustomNav />
 							<FeedContainer />
 						</div>
 					} />
 					<Route path="/stop/:stop_id" component={ StationContainer } />
+					<Route path="/route/:route_id" component={ RouteContainer } />
 				</div>
 			</Router>
 		);
@@ -42,7 +46,7 @@ class TransitTracker extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-	setAllStops
+	setAllStops, setAllRoutes
 }, dispatch);
 
 export default connect(null, mapDispatchToProps)(TransitTracker);

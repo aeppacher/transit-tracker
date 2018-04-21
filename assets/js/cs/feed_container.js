@@ -3,7 +3,8 @@ import Feed from './feed';
 
 const mapStateToProps = (state) => {
 	return {
-		allStops: state.feed.allStops
+		allStops: state.stops.allStops,
+		allRoutes: state.routes.allRoutes
 	}
 }
 

@@ -25,6 +25,11 @@ defmodule TransitTrackerWeb.RouteController do
     render(conn, "show.json", route: route)
   end
 
+  def get_route_by_route_id(conn, %{"route_id" => route_id}) do
+    route = Transit.get_route_by_route_id(route_id)
+    render(conn, "show.json", route: route)
+  end
+
   def update(conn, %{"id" => id, "route" => route_params}) do
     route = Transit.get_route!(id)
 

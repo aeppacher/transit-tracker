@@ -39,6 +39,11 @@ defmodule TransitTracker.Transit do
   def get_route_by_route_id!(route_id) do
     Repo.get_by!(Route, route_id: route_id)
   end
+
+  def get_route_by_route_id(route_id) do
+    Repo.get_by!(Route, route_id: route_id)
+  end
+
   
   @doc """
   Creates a route.

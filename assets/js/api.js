@@ -14,6 +14,20 @@ class Server {
 			}
 		});
 	}
+	
+	request_routes() {
+		$.ajax("/api/routes", {
+			method: "get",
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			success: (response) => {
+				store.dispatch({
+					type: 'ROUTES_LIST',
+					stops: response.data
+				})
+			}
+		});
+	}
 }
 
 export default new Server();

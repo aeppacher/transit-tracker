@@ -13,9 +13,10 @@
 // to also remove its path from "config.paths.watched".
 import React from 'react';
 import "phoenix_html";
-import api from './api';
 
 import stopReducer from './redux/stop_reducer';
+import routeReducer from './redux/route_reducer';
+import userReducer from './redux/user_reducer';
 
 import thunk from "redux-thunk";
 import promise from "redux-promise-middleware";
@@ -32,7 +33,9 @@ import { Provider, connect } from 'react-redux';
 // import socket from "./socket"
 
 const allReducers = combineReducers({
-	feed: stopReducer,
+	stops: stopReducer,
+	routes: routeReducer,
+	user: userReducer
 });
 
 let store = createStore(
