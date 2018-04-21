@@ -394,4 +394,72 @@ defmodule TransitTracker.TransitTest do
       assert %Ecto.Changeset{} = Transit.change_vehicle(vehicle)
     end
   end
+
+  describe "predictions" do
+    alias TransitTracker.Transit.Prediction
+
+    @valid_attrs %{arrival_time: "2010-04-17 14:00:00.000000Z", direction: 42, route_mbta_id: "some route_mbta_id", stop_mbta_id: "some stop_mbta_id", vehicle_mbta_id: "some vehicle_mbta_id"}
+    @update_attrs %{arrival_time: "2011-05-18 15:01:01.000000Z", direction: 43, route_mbta_id: "some updated route_mbta_id", stop_mbta_id: "some updated stop_mbta_id", vehicle_mbta_id: "some updated vehicle_mbta_id"}
+    @invalid_attrs %{arrival_time: nil, direction: nil, route_mbta_id: nil, stop_mbta_id: nil, vehicle_mbta_id: nil}
+
+    def prediction_fixture(attrs \\ %{}) do
+      {:ok, prediction} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Transit.create_prediction()
+
+      prediction
+    end
+
+    test "list_predictions/0 returns all predictions" do
+      prediction = prediction_fixture()
+      assert Transit.list_predictions() == [prediction]
+    end
+
+    test "get_prediction!/1 returns the prediction with given id" do
+      prediction = prediction_fixture()
+      assert Transit.get_prediction!(prediction.id) == prediction
+    end
+
+    test "create_prediction/1 with valid data creates a prediction" do
+      assert {:ok, %Prediction{} = prediction} = Transit.create_prediction(@valid_attrs)
+      assert prediction.arrival_time == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+      assert prediction.direction == 42
+      assert prediction.route_mbta_id == "some route_mbta_id"
+      assert prediction.stop_mbta_id == "some stop_mbta_id"
+      assert prediction.vehicle_mbta_id == "some vehicle_mbta_id"
+    end
+
+    test "create_prediction/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Transit.create_prediction(@invalid_attrs)
+    end
+
+    test "update_prediction/2 with valid data updates the prediction" do
+      prediction = prediction_fixture()
+      assert {:ok, prediction} = Transit.update_prediction(prediction, @update_attrs)
+      assert %Prediction{} = prediction
+      assert prediction.arrival_time == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+      assert prediction.direction == 43
+      assert prediction.route_mbta_id == "some updated route_mbta_id"
+      assert prediction.stop_mbta_id == "some updated stop_mbta_id"
+      assert prediction.vehicle_mbta_id == "some updated vehicle_mbta_id"
+    end
+
+    test "update_prediction/2 with invalid data returns error changeset" do
+      prediction = prediction_fixture()
+      assert {:error, %Ecto.Changeset{}} = Transit.update_prediction(prediction, @invalid_attrs)
+      assert prediction == Transit.get_prediction!(prediction.id)
+    end
+
+    test "delete_prediction/1 deletes the prediction" do
+      prediction = prediction_fixture()
+      assert {:ok, %Prediction{}} = Transit.delete_prediction(prediction)
+      assert_raise Ecto.NoResultsError, fn -> Transit.get_prediction!(prediction.id) end
+    end
+
+    test "change_prediction/1 returns a prediction changeset" do
+      prediction = prediction_fixture()
+      assert %Ecto.Changeset{} = Transit.change_prediction(prediction)
+    end
+  end
 end

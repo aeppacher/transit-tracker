@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { setAllStops } from '../redux/transit_actions';
-import { setAllRoutes } from '../redux/route_actions';
+import { setAllRoutes } from '../redux/transit_actions';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

@@ -43,5 +43,7 @@ defmodule TransitTrackerWeb.Router do
     get "/stops/id/:stop_id", StopController, :get_stop_by_stop_id
     get "/routes/id/:route_id", RouteController, :get_route_by_route_id
     get "/stops/favorites/:user_id", StopController, :favorites
+    resources "/predictions", PredictionController, except: [:new, :edit]
+    get "/predictions/stop/:stop_int_id", PredictionController, :list_predictions_by_stop_int_id
   end
 end
