@@ -11,6 +11,11 @@ defmodule TransitTrackerWeb.VehicleController do
     render(conn, "index.json", vehicles: vehicles)
   end
 
+  def route(conn, %{"route_id" => id}) do
+    vehicles = Transit.get_vehicles_by_route(id)
+    render(conn, "index.json", vehicles: vehicles)
+  end
+
   def create(conn, %{"vehicle" => vehicle_params}) do
     with {:ok, %Vehicle{} = vehicle} <- Transit.create_vehicle(vehicle_params) do
       conn

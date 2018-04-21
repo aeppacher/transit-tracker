@@ -27,7 +27,7 @@ defmodule TransitTracker.UpdateVehicles do
       long: attr["longitude"],
       current_status: attr["current_status"],
       next_stop_id: next_stop_id,
-      route_id: Transit.get_route_by_route_id!(route_id).id,
+      route_id: Transit.get_route_by_route_id!(route_id).route_id,
       next_stop_eta: nil, #TODO: attr[""],
       direction: attr["direction_id"]}
     
