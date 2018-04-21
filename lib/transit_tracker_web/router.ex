@@ -38,8 +38,10 @@ defmodule TransitTrackerWeb.Router do
     resources "/routes", RouteController, except: [:new, :edit]
     resources "/stops", StopController, except: [:new, :edit]
     resources "/vehicles", VehicleController, except: [:new, :edit]
+    resources "/predictions", PredictionController, except: [:new, :edit]
     get "/stops/:route_id", StopController, :get_stops_by_route
     get "/stops/id/:stop_id", StopController, :get_stop_by_stop_id
     get "/routes/id/:route_id", RouteController, :get_route_by_route_id
+    get "/predictions/stop/:stop_int_id", PredictionController, :list_predictions_by_stop_int_id
   end
 end
