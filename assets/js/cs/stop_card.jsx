@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-export default function Stop(params) {
+export default function StopCard(params) {
   let stop = params.stop;
 
   let stopName = stop.name;
