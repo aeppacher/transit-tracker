@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import FeedContainer from './feed_container';
 import StationContainer from './station_container';
 import RouteContainer from './route_container';
-import Nav from './nav';
+import CustomNav from './custom_nav';
 
 
 class TransitTracker extends Component {
@@ -24,6 +24,7 @@ class TransitTracker extends Component {
 
 	getData(){
 		this.props.setAllStops();
+		this.props.setAllRoutes();
 	}
 
 	render() {
@@ -32,7 +33,7 @@ class TransitTracker extends Component {
 				<div>
 					<Route path="/" exact={true} render={() =>
 						<div>
-							<Nav />
+							<CustomNav />
 							<FeedContainer />
 						</div>
 					} />

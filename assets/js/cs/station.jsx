@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-import Nav from './nav';
+import CustomNav from './custom_nav';
 
 class Station extends React.Component {
 
@@ -33,7 +33,7 @@ class Station extends React.Component {
 		console.log(this.props, "render props");
 		return (
 			<div>
-				<Nav />
+				<CustomNav />
 				<Card >
 					<CardBody>
 		        <CardTitle >

@@ -22,6 +22,7 @@ defmodule TransitTrackerWeb.Router do
     get "/feed", PageController, :index
     get "/stop/:stop_id", PageController, :index
     get "/route/:route_id", PageController, :index
+    get "/favorites", PageController, :index
   end
   
   scope "/auth", TransitTrackerWeb do

@@ -16,6 +16,7 @@ import "phoenix_html";
 
 import stopReducer from './redux/stop_reducer';
 import routeReducer from './redux/route_reducer';
+import userReducer from './redux/user_reducer';
 
 import thunk from "redux-thunk";
 import promise from "redux-promise-middleware";
@@ -33,7 +34,8 @@ import { Provider, connect } from 'react-redux';
 
 const allReducers = combineReducers({
 	stops: stopReducer,
-	routes: routeReducer
+	routes: routeReducer,
+	user: userReducer
 });
 
 let store = createStore(
