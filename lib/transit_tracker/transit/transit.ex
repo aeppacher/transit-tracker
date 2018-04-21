@@ -6,6 +6,7 @@ defmodule TransitTracker.Transit do
   import Ecto.Query, warn: false
   alias TransitTracker.Repo
   alias TransitTracker.Transit.Route
+  alias TransitTracker.Accounts.User
 
   @doc """
   Returns the list of routes.
@@ -217,6 +218,15 @@ defmodule TransitTracker.Transit do
     Repo.get_by!(Stop, stop_id: stop_id)
   end
 
+  def get_stops_by_favorites(user_id) do
+    user = Repo.get_by(User, id: user_id)
+    fav = user.favorites
+    query = from s in Stop,
+            where: s.stop_id in ^fav,
+            select: s
+    Repo.all(query)
+  end
+
   def get_stop_by_children(id) do
     query = from s in Stop,
             where: ^id in s.children,
@@ -273,6 +283,14 @@ defmodule TransitTracker.Transit do
     |> Vehicle.changeset(attrs)
     |> Repo.insert()
   end
+
+  def get_vehicles_by_route(id) do
+    query = from v in Vehicle,
+          where: v.route_id == ^id,
+          select: v
+    Repo.all(query)
+  end
+
 
   @doc """
   Updates a vehicle.
