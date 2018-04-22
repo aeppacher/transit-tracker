@@ -11,6 +11,7 @@ class Station extends React.Component {
 		super(props);
 
 		this.addFavorite = this.addFavorite.bind(this);
+		this.removeFavorite = this.removeFavorite.bind(this);
 		let user_id = window.user;
 
 		if(this.props.currentUser !== undefined){
@@ -33,8 +34,18 @@ class Station extends React.Component {
 		let favorites = this.props.currentUser.favorites;
 		favorites.push(this.props.currentStop.stop_id);
 
-		console.log(favorites, "favorites");
 		this.props.addFavorite(favorites, this.props.currentUser.id);
+		location.reload();
+	}
+
+	removeFavorite(){
+		let favorites = this.props.currentUser.favorites;
+		var index = favorites.indexOf(this.props.currentStop.stop_id);
+		if (index > -1) {
+		  favorites.splice(index, 1);
+		}
+		this.props.addFavorite(favorites, this.props.currentUser.id);
+		location.reload();
 	}
 
 	render(){
@@ -48,9 +59,21 @@ class Station extends React.Component {
 		let favoritesButton = <Button color="link" onClick={this.addFavorite}>
 			Add to favorites
 		</Button>;
-		//let alreadyFavorited = this.props.currentUser.favorites.indexOf(this.props.current)
+		let unfavoriteButton = <Button color="link" onClick={this.removeFavorite}>
+			Remove from favorites
+		</Button>;
+		let favorites = null;
 
-		let favorites = this.state.loggedIn !== false ? favoritesButton : null;
+		if(this.props.currentUser !== null){
+			console.log(this.props, "logged in props");
+			let currentFavorites = this.props.currentUser.favorites !== null
+			if(this.props.currentUser.favorites.indexOf(this.props.currentStop.stop_id) == -1){
+				favorites = favoritesButton;
+			}
+			else{
+				favorites = unfavoriteButton;
+			}
+		}
 
 		console.log(this.props, "render props");
 		return (

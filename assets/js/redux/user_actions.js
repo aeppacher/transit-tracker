@@ -4,3 +4,9 @@ export function setCurrentUser(user) {
 		payload: user
 	}
 }
+export function setFavorites(user) {
+	return {
+		type: 'SET_FAVORITES',
+		payload: user
+	}
+}
