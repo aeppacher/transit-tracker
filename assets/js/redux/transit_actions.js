@@ -24,10 +24,10 @@ export function addFavorite(favorites, user_id) {
 		$.ajax("/api/users/" + user_id, {
 			method: "put",
 			dataType: "json",
-			data: JSON.stringify({
-				favorites: favorites
-			}),
 			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify({
+                user: {"favorites" : favorites}
+			}),
 			success: (response) => {
 				//nothing
 			},
