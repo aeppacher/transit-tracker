@@ -3,15 +3,17 @@ import { bindActionCreators } from 'redux';
 
 import Station from './station';
 
-import { getStopData } from '../redux/transit_actions';
+import { getStopData, addFavorite } from '../redux/transit_actions';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
 	getStopData,
+	addFavorite
 }, dispatch);
 
 const mapStateToProps = (state) => {
 	return {
-		currentStop: state.stops.currentStop
+		currentStop: state.stops.currentStop,
+		currentUser: state.user.currentUser
 	}
 }
 

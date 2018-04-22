@@ -10,7 +10,15 @@ class Station extends React.Component {
 	constructor(props) {
 		super(props);
 
-		console.log(props, "station props");
+		this.addFavorite = this.addFavorite.bind(this);
+		let user_id = window.user;
+
+		if(this.props.currentUser !== undefined){
+			this.state = { loggedIn: true};
+		}
+		else {
+			this.state = { loggedIn: false};
+		}
 	}
 
 	componentDidMount(){
@@ -21,6 +29,14 @@ class Station extends React.Component {
 		this.props.getStopData(this.props.match.params.stop_id);
 	}
 
+	addFavorite(){
+		let favorites = this.props.currentUser.favorites;
+		favorites.push(this.props.currentStop.stop_id);
+
+		console.log(favorites, "favorites");
+		this.props.addFavorite(favorites, this.props.currentUser.id);
+	}
+
 	render(){
 		let routes = this.props.currentStop.routes;
 
@@ -29,6 +45,12 @@ class Station extends React.Component {
     	<NavLink to={"/route/" + rr}>{rr}</NavLink>
     </CardText>);
 
+		let favoritesButton = <Button color="link" onClick={this.addFavorite}>
+			Add to favorites
+		</Button>;
+		//let alreadyFavorited = this.props.currentUser.favorites.indexOf(this.props.current)
+
+		let favorites = this.state.loggedIn !== false ? favoritesButton : null;
 
 		console.log(this.props, "render props");
 		return (
@@ -38,6 +60,7 @@ class Station extends React.Component {
 					<CardBody>
 		        <CardTitle >
 		       		{"Station - " + this.props.currentStop.name}
+		       		{favorites}
 		        </CardTitle>
 			    	<CardTitle >
 		       		Routes
