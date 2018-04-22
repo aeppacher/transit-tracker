@@ -9,7 +9,6 @@ export function getCurrentUser(user_id){
 			dataType: "json",
 			contentType: "application/json; charset=UTF-8",
 			success: (response) => {
-				console.log(response.data, "response");
 				dispatch(UserActions.setCurrentUser(response.data));
 			},
 			error: (error) => {
@@ -26,13 +25,9 @@ export function addFavorite(favorites, user_id) {
 			dataType: "json",
 			contentType: "application/json; charset=UTF-8",
 			data: JSON.stringify({
-                user: {"favorites" : favorites}
+        user: {"favorites" : favorites}
 			}),
-			success: (response) => {
-				//nothing
-			},
 			error: (error) => {
-				console.log(favorites, "favorites passed");
 				console.log(error, "addFavorite errors");
 			}
 		});
@@ -62,8 +57,24 @@ export function getStopData(stop_id){
 			dataType: "json",
 			contentType: "application/json; charset=UTF-8",
 			success: (response) => {
-				console.log(response, "response");
 				dispatch(StopActions.setStopData(response.data));
+			},
+			error: (error) => {
+				console.log(error, "setStopData errors");
+			}
+		});
+	}
+}
+
+export function getFavorites(user_id){
+	return (dispatch) => {
+		$.ajax("/api/stops/favorites/" + user_id, {
+			method: "get",
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			success: (response) => {
+				console.log(response.data, "response");
+				dispatch(UserActions.setFavorites(response.data));
 			},
 			error: (error) => {
 				console.log(error, "setStopData errors");
@@ -95,7 +106,6 @@ export function getRouteData(route_id){
 			dataType: "json",
 			contentType: "application/json; charset=UTF-8",
 			success: (response) => {
-				console.log(response, "response");
 				dispatch(RouteActions.setRouteData(response.data));
 			},
 			error: (error) => {

@@ -5,15 +5,18 @@ import { Link, Redirect } from 'react-router-dom';
 
 import StopCard from './stop_card';
 
-class Feed extends React.Component {
+class Favorites extends React.Component {
 	constructor(props) {
 		super(props);
+
+		console.log(this.props, "favorites props");
 
 		this.toggleStops = this.toggleStops.bind(this);
 
 		this.state = 
 		{
 			stopsCollapsed: true,
+			favoritesPulled: false
 		}
 	}
 
@@ -33,7 +36,12 @@ class Feed extends React.Component {
 	}
 
 	render(){
-		let unsortedStops = this.props.allStops === undefined ? [] : this.props.allStops;
+		if(this.props.currentUser !== null && this.state.favoritesPulled === false){
+			this.props.getFavorites(this.props.currentUser.id);
+			this.setState({favoritesPulled: true});
+		}
+
+		let unsortedStops = this.state.favoritesPulled === true ? this.props.favoriteStops : [];
 		let sortedStops = this.sortByKey(unsortedStops, "name");
 		let stop_cards = _.map(sortedStops, (ss) => <StopCard key={ss.id} stop={ss} />);
 

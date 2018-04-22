@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import FeedContainer from './feed_container';
+import FavoritesContainer from './favorites_container';
 import StationContainer from './station_container';
 import RouteContainer from './route_container';
 import CustomNav from './custom_nav';
@@ -39,6 +40,12 @@ class TransitTracker extends Component {
 					} />
 					<Route path="/stop/:stop_id" component={ StationContainer } />
 					<Route path="/route/:route_id" component={ RouteContainer } />
+					<Route path="/favorites" exact={true} render={() =>
+						<div>
+							<CustomNav />
+							<FavoritesContainer />
+						</div>
+					} />
 				</div>
 			</Router>
 		);
