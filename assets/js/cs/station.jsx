@@ -27,7 +27,9 @@ class Station extends React.Component {
 	}
 
 	getData(){
+		console.log(this.props, "matched");
 		this.props.getStopData(this.props.match.params.stop_id);
+		//this.props.getStopArrivals(this.props.match.params);
 	}
 
 	addFavorite(){
@@ -92,12 +94,18 @@ class Station extends React.Component {
 			        {routeCards}
 				    </CardBody>
 			    	<CardTitle >
-		       		Arrivals A:
+		       		Direction A
+		       		<CardText>
+					    	No Predictions, this might be due to the MBTA Api having outages again
+					    </CardText>
 		        </CardTitle>
 			      <CardBody>
 				    </CardBody>
 			    	<CardTitle >
-		       		Arrivals B:
+		       		Direction B
+		       		<CardText>
+					    	No Predictions, this might be due to the MBTA Api having outages again
+					    </CardText>
 		        </CardTitle>
 			      <CardBody>
 				    </CardBody>

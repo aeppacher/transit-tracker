@@ -21,9 +21,19 @@ class Route extends React.Component {
 
 	render(){
 		console.log(this.props, "render props");
-		return(
+		return (
 			<div>
 				<CustomNav />
+				<Card >
+					<CardBody>
+		        <CardTitle >
+		       		{"Route - " + this.props.currentRoute.name}
+		        </CardTitle>
+		        <CardTitle>
+		        	{"Directions - " + this.props.currentRoute.dir_0 + " + " + this.props.currentRoute.dir_1}
+		       	</CardTitle>
+				  </CardBody>
+			  </Card>
 			</div>
 		);
 	}
