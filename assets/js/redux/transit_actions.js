@@ -19,6 +19,26 @@ export function getCurrentUser(user_id){
 	}
 }
 
+export function addFavorite(favorites, user_id) {
+	return (dispatch) => {
+		$.ajax("/api/users/" + user_id, {
+			method: "put",
+			dataType: "json",
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify({
+                user: {"favorites" : favorites}
+			}),
+			success: (response) => {
+				//nothing
+			},
+			error: (error) => {
+				console.log(favorites, "favorites passed");
+				console.log(error, "addFavorite errors");
+			}
+		});
+	}
+}
+
 export function setAllStops() {
 	return (dispatch) => {
 		$.ajax("/api/stops", {
