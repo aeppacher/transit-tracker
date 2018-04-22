@@ -25,6 +25,11 @@ defmodule TransitTrackerWeb.StopController do
     render(conn, "index.json", stops: stops)
   end
 
+  def get_stops_by_route(conn, %{"route_id" => route_id}) do
+    stops = Transit.get_stops_by_route_id(route_id)
+    render(conn, "index.json", stops: stops)
+  end
+
   def favorites(conn, %{"user_id" => id}) do
     stops = Transit.get_stops_by_favorites(id)
     render(conn, "index.json", stops: stops)

@@ -11,3 +11,10 @@ export function setStopData(stop) {
 		payload: stop
 	}
 }
+
+export function setCurrentRouteStops(stop) {
+	return {
+		type: 'SET_CURRENT_ROUTE_STOPS',
+		payload: stop
+	}
+}

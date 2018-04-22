@@ -3,15 +3,17 @@ import { bindActionCreators } from 'redux';
 
 import Route from './route';
 
-import { getRouteData } from '../redux/transit_actions';
+import { getRouteData, getCurrentRouteStops } from '../redux/transit_actions';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
 	getRouteData,
+	getCurrentRouteStops
 }, dispatch);
 
 const mapStateToProps = (state) => {
 	return {
-		currentRoute: state.routes.currentRoute
+		currentRoute: state.routes.currentRoute,
+		currentRouteStops: state.routes.currentRouteStops
 	}
 }
 
